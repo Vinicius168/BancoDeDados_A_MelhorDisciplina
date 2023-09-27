@@ -114,3 +114,22 @@ BEGIN
 END;
 
 //
+
+--exercicio 9
+-- Criação da stored procedure sp_LivrosPorCategoria
+CREATE PROCEDURE sp_LivrosPorCategoria(IN categoriaNome VARCHAR(100))
+BEGIN
+    -- Seleciona os títulos dos livros, nomes e sobrenomes dos autores
+    SELECT Livro.Titulo, Autor.Nome, Autor.Sobrenome
+    FROM Livro
+    -- Realiza uma junção (join) com a tabela Categoria para filtrar pela categoria desejada
+    INNER JOIN Categoria ON Livro.Categoria_ID = Categoria.Categoria_ID
+    -- Realiza uma junção com a tabela Autor_Livro para associar livros a autores
+    INNER JOIN Autor_Livro ON Livro.Livro_ID = Autor_Livro.Livro_ID
+    -- Realiza uma junção com a tabela Autor para obter os nomes dos autores
+    INNER JOIN Autor ON Autor_Livro.Autor_ID = Autor.Autor_ID
+    -- Filtra os resultados pela categoria passada como parâmetro
+    WHERE Categoria.Nome = categoriaNome;
+END;
+
+//
