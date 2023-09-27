@@ -103,3 +103,14 @@ end;
 delimiter ;
 
 call sp_AdicionarLivro('Os males do vilão', 2, 2023, 320, 4);
+
+-- exercicio 8
+CREATE PROCEDURE sp_AutorMaisAntigo(OUT nomeAutorMaisAntigo VARCHAR(255))
+BEGIN
+    SELECT CONCAT(Nome, ' ', Sobrenome)
+    INTO nomeAutorMaisAntigo
+    FROM Autor
+    WHERE Data_Nascimento = (SELECT MIN(Data_Nascimento) FROM Autor);
+END;
+
+//
